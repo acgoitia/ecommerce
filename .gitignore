@@ -1,0 +1,7 @@
+.env
+node_modules
+.DS_Store
+public/js/bundle.js
+public/js/bundle.js.map
+codecademy-ecommerce-rest-api-master
+codecademy-ecommerce-rest-api-master.zip
