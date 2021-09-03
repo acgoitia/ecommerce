@@ -5,10 +5,10 @@ const express = require('express');
 const app = express();
 const PORT =  process.env.PORT || 4001;
 
-const session = require('express-session');
-const flash = require('express-flash');
-const passport = require('passport');
-const initializePassport = require('./passport-config');
+// const session = require('express-session');
+// const flash = require('express-flash');
+// const passport = require('passport');
+// const initializePassport = require('./passport-config');
 
 // Use static server to serve the Express Yourself Website
 app.use(express.static('public'));
@@ -32,34 +32,34 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
 // handle login
-initializePassport(passport);
-app.use(flash());
-app.use(session({ 
-  secret: process.env.SECRET_SESSION,
-  resave: false,
-  saveUninitialized: false  
-}));
-app.use (express.urlencoded({ extended: false }));
+// initializePassport(passport);
+// app.use(flash());
+// app.use(session({ 
+//   secret: process.env.SECRET_SESSION,
+//   resave: false,
+//   saveUninitialized: false  
+// }));
+// app.use (express.urlencoded({ extended: false }));
 
-app.post(
-  '/login', 
-  passport.authenticate('local'),
-  async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
+// app.post(
+//   '/login', 
+//   passport.authenticate('local'),
+//   async (req, res, next) => {
+//   try {
+//     const { username, password } = req.body;
   
-    const response = await login({username, password});
+//     const response = await login({username, password});
   
-    res.status(200).send(response);
-  } catch(err) {
-    next(err);
-  }
-}
-);
-app.delete('/logout', (req, res) => {
-  req.logout();
-  req.redirect('/login');
-})
+//     res.status(200).send(response);
+//   } catch(err) {
+//     next(err);
+//   }
+// }
+// );
+// app.delete('/logout', (req, res) => {
+//   req.logout();
+//   req.redirect('/login');
+// })
 
 // listen on PORT
 app.listen(PORT, () => {
@@ -70,44 +70,44 @@ module.exports = app;
 
 
 // Try to copy structure of model answer
-async function login(data) {
+// async function login(data) {
 
-  const { email, password } = data;
+//   const { email, password } = data;
 
-  try {
-    // Check if user exists
-    const user = await getUserByEmail(email);
+//   try {
+//     // Check if user exists
+//     const user = await getUserByEmail(email);
 
-    // If no user found, reject
-    if (!user) {
-      throw createError(401, 'Incorrect username or password');
-    }
+//     // If no user found, reject
+//     if (!user) {
+//       throw createError(401, 'Incorrect username or password');
+//     }
 
-    // Check for matching passwords
-    if (user.password !== password) {
-      throw createError(401, 'Incorrect username or password');
-    }
+//     // Check for matching passwords
+//     if (user.password !== password) {
+//       throw createError(401, 'Incorrect username or password');
+//     }
 
-    return user;
+//     return user;
 
-  } catch(err) {
-    throw createError(500, err);
-  }
+//   } catch(err) {
+//     throw createError(500, err);
+//   }
 
-};
+// };
 
-async function getUserByEmail(email) {
-  try {
-    const emailResponse = await db.query('SELECT * FROM public.user WHERE email = $1', [email]);
+// async function getUserByEmail(email) {
+//   try {
+//     const emailResponse = await db.query('SELECT * FROM public.user WHERE email = $1', [email]);
     
-    if (emailResponse.rows[0]) {
-      return emailResponse.rows[0];
-    } else {
-      return null;
-    }
-  } catch (err) {
-    throw new Error(err);
-  }
-}
+//     if (emailResponse.rows[0]) {
+//       return emailResponse.rows[0];
+//     } else {
+//       return null;
+//     }
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
 
 
