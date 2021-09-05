@@ -30,12 +30,23 @@ usersRouter.get('/:id', validateUser, (req, res, next) => {
 usersRouter.put('/:id', validateUser, async (req, res, next) => {
   const {first_name, last_name, email, password} = req.body;
   const userId = req.params.id;
-  const action = `UPDATE public.users SET first_name = $1, last_name = $2, email = $3, password = $4, modified = $5`;
-  // CONTINUE HERE...
+  // log date
+  const dateResponse = await db.query('SELECT LOCALTIMESTAMP');
+  const timestamp = dateResponse.rows[0].localtimestamp;
+  //
+  const action = `UPDATE public.user SET first_name = $1, last_name = $2, email = $3, password = $4, modified = $5 WHERE id=$6`;
+  const params = [first_name, last_name, email, password, timestamp, userId];
+
+  const updatedUser = await db.query(action, params);
+  res.send('User updated')
 });
 
 // Delete existing user
-usersRouter.delete('/:id',);
+usersRouter.delete('/:id', validateUser, async (req, res, next) => {
+  const userId = req.params.id;
+  const deletedUser = await db.query(`DELETE FROM public.user WHERE id = $1`, [userId]);
+  res.send('User Deleted');
+});
 
 
 // Error handler here:
@@ -48,20 +59,3 @@ usersRouter.use((err, req, res, next) => {
 
 module.exports = usersRouter;
 
-
-
-// try {
-//   const userId = req.params.id;
-//   const user = await db.query(`SELECT * FROM public.user WHERE id = $1`, [userId]);
-//   if(!user.rows[0]){
-//     const err = new Error('user not found');
-//       err.status = 400;
-//       return next(err)
-//   }
-//   res.send(user.rows[0]);
-
-// } catch (error) {
-//   console.log(error);
-//   res.send(error);
-// }
-// });
