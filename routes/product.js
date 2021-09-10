@@ -32,7 +32,7 @@ productsRouter.get('/', async (req, res, next) => {
     const action = `SELECT * FROM public.products WHERE categoryid = $1`;
     const params = [categoryId];
     const products = await db.query(action, params);
-    res.send(products.rowsC);
+    res.send(products.rows);
 });
 
 

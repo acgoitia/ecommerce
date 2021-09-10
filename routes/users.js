@@ -21,6 +21,25 @@ const validateUser = async (req, res, next) => {
 };
 
 
+///***  test router for searching by email
+usersRouter.get('/', async (req, res, next) => {
+  try {
+    const {email} = req.body;
+    const response = await db.query(`SELECT * FROM public.user WHERE email =$1`, [email]);
+    const user = response.rows[0];
+    if (!user) {
+      const err = new Error('user not found');
+      err.status = 400;
+      return next(err);
+    }
+    res.status(200).send(user);
+  } catch (err) {
+    next(err)
+  }
+});
+
+//***
+
 // Retrieve data from existing user
 usersRouter.get('/:id', validateUser, (req, res, next) => {
     res.send(req.user.rows[0]);
