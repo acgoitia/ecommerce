@@ -61,7 +61,6 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Import and mount Routers
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/product');
 const ordersRouter = require('./routes/order');
@@ -69,7 +68,6 @@ const cartsRouter = require('./routes/cart');
 const registerRouter = require('./routes/register');
 //const loginRouter = require('./routes/login');
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
@@ -94,73 +92,11 @@ app.post('/login',  passport.authenticate('local'), async (req, res, next) => {
 });
 
 
-// app.post(
-//   '/login', 
-//   passport.authenticate('local'),
-//   async (req, res, next) => {
-//   try {
-//     const { username, password } = req.body;
-  
-//     const response = await login({username, password});
-  
-//     res.status(200).send(response);
-//   } catch(err) {
-//     next(err);
-//   }
-// }
-// );
-// app.delete('/logout', (req, res) => {
-//   req.logout();
-//   req.redirect('/login');
-// })
-
 // listen on PORT
 app.listen(PORT, () => {
   console.log(`Server is listening on ${PORT}`);
 });
 
 module.exports = app;
-
-
-// Try to copy structure of model answer
-// async function login(data) {
-
-//   const { email, password } = data;
-
-//   try {
-//     // Check if user exists
-//     const user = await getUserByEmail(email);
-
-//     // If no user found, reject
-//     if (!user) {
-//       throw createError(401, 'Incorrect username or password');
-//     }
-
-//     // Check for matching passwords
-//     if (user.password !== password) {
-//       throw createError(401, 'Incorrect username or password');
-//     }
-
-//     return user;
-
-//   } catch(err) {
-//     throw createError(500, err);
-//   }
-
-// };
-
-// async function getUserByEmail(email) {
-//   try {
-//     const emailResponse = await db.query('SELECT * FROM public.user WHERE email = $1', [email]);
-    
-//     if (emailResponse.rows[0]) {
-//       return emailResponse.rows[0];
-//     } else {
-//       return null;
-//     }
-//   } catch (err) {
-//     throw new Error(err);
-//   }
-// }
 
 

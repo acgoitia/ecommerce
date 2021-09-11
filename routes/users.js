@@ -40,6 +40,25 @@ usersRouter.get('/', async (req, res, next) => {
 
 //***
 
+//.................................................
+// Test - retrieve data only for authenticated user
+
+usersRouter.get('/auth', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const response = await db.query(`SELECT * FROM public.user WHERE id = $1`, [id]);
+    const user = response.rows[0];
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+
+
+});
+
+//.................................................
+
+
 // Retrieve data from existing user
 usersRouter.get('/:id', validateUser, (req, res, next) => {
     res.send(req.user.rows[0]);
