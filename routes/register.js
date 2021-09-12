@@ -7,16 +7,6 @@ registerRouter.post('/', async (req, res, next) => {
     try {
       const {first_name, last_name, email, password} = req.body;
       
-      // generate new id
-      const idResponse = await db.query('SELECT MAX(id) FROM public.user');
-      const current_id = idResponse.rows[0].max;
-      let new_id;
-      if (current_id) {
-        new_id = current_id + 1;
-      } else {
-        new_id = 1; 
-      }
-      
       // check that email is not registered
       const emailResponse = await db.query('SELECT * FROM public.user WHERE email = $1', [email]);
       var hasEmail;
@@ -24,7 +14,6 @@ registerRouter.post('/', async (req, res, next) => {
         hasEmail = emailResponse.rows[0].email;
       }
       if (hasEmail) {
-        //return res.status(404).send('email already registered')  // double-check how to move to error handler ** TO DO **
         const err = new Error('email already registered');
         err.status = 400;
         return next(err);
@@ -35,11 +24,17 @@ registerRouter.post('/', async (req, res, next) => {
       const timestamp = dateResponse.rows[0].localtimestamp;
   
       // INSERT into database
-      const action = `INSERT INTO public.user (id, first_name, last_name, email, password, created, modified) VALUES (
-         $1, $2, $3, $4, $5, $6, $7)`;
-      const params = [new_id, first_name, last_name, email, password, timestamp, timestamp];
+      const action = `INSERT INTO public.user (first_name, last_name, email, password, created, modified) VALUES (
+         $1, $2, $3, $4, $5, $6)`;
+      const params = [first_name, last_name, email, password, timestamp, timestamp];
       const newUser = await db.query(action, params);
   
+      //
+      const response = await db.query(`SELECT (id) FROM public.user WHERE email = $1`, [email]);
+      const {id} = response.rows[0];
+      // Generate new cart id for new user
+      const newCart = await db.query(`INSERT INTO public.cart (user_id) VALUES ($1)`,[id]);
+
       res.send('New user created');
       
       // execute database action
