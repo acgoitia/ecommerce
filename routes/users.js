@@ -3,6 +3,66 @@ const usersRouter = express.Router();
 const db = require('../db');
 
 
+// View user profile for authenticated user
+usersRouter.get('/myprofile', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const response = await db.query(`SELECT * FROM public.user WHERE id = $1`, [id]);
+    const user = response.rows[0];
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update user profile for authenticated user
+
+usersRouter.put('/myprofile', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { first_name, last_name, email, password } = req.body;
+    
+    //let statement = "";
+    //if(first_name){
+      const statement = `first_name = '${first_name}'`;
+    //}
+
+    const response = await db.query(`UPDATE public.user SET ${statement} WHERE id = ${id}`)
+
+    //const response = await db.query(`SELECT * FROM public.user WHERE id = $1`, [id]);
+    //const user = response.rows[0];
+
+
+
+    res.send('user updated');
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
+
+
+
+//.................................................
+// Test - retrieve data only for authenticated user
+
+usersRouter.get('/auth', async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const response = await db.query(`SELECT * FROM public.user WHERE id = $1`, [id]);
+    const user = response.rows[0];
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+
+
+});
+
+//.................................................
+
 const validateUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
@@ -40,23 +100,6 @@ usersRouter.get('/', async (req, res, next) => {
 
 //***
 
-//.................................................
-// Test - retrieve data only for authenticated user
-
-usersRouter.get('/auth', async (req, res, next) => {
-  try {
-    const { id } = req.user;
-    const response = await db.query(`SELECT * FROM public.user WHERE id = $1`, [id]);
-    const user = response.rows[0];
-    res.send(user);
-  } catch (err) {
-    next(err);
-  }
-
-
-});
-
-//.................................................
 
 
 // Retrieve data from existing user
