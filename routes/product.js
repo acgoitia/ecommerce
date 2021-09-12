@@ -3,6 +3,13 @@ const productsRouter = express.Router();
 const db = require('../db');
 
 
+// Retrieve all products
+productsRouter.get('/all', async (req, res, next) => {
+    const products = await db.query(`SELECT * FROM public.products`);
+    res.send(products.rows);
+});
+
+
 const validateProduct = async (req, res, next) => {
     try {
       const productId = req.params.id;
@@ -19,6 +26,7 @@ const validateProduct = async (req, res, next) => {
       res.send(error)
     }
   };
+
 
 // Retrieve data from existing product
 productsRouter.get('/:id', validateProduct, async (req, res, next) => {
