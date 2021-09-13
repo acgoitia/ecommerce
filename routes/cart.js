@@ -2,32 +2,63 @@ const express = require('express');
 const cartsRouter = express.Router();
 const db = require('../db');
 
-// get current cartId
-const currentCartId = async (req, res, next) => {
-    const idResponse = await db.query('SELECT MAX(cartId) FROM public.cart_product');
-    const current_id = idResponse.rows[0].max;
-    let new_id;
-    if (current_id) {
-      req.new_id = current_id + 1;
-    } else {
-      req.new_id = 1; 
+// view cart
+cartsRouter.get('/', async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const response = await db.query(
+            `SELECT product_id, price, quantity 
+            FROM public.cart_items
+            JOIN public.cart ON public.cart_items.cart_id = public.cart.id
+            WHERE public.cart.user_id = ${id}`);
+        res.send(response.rows);
+    } catch (error) {
+        next(error);
     }
-    next();
-}
-
-
-// Create new cart
-cartsRouter.post('/', currentCartId, async(req, res, next) => {
 
 });
 
-// Retrieve data from existing cart
-cartsRouter.get('/:id',);
+// Add new item to cart
+cartsRouter.post('/', async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const { product_id, quantity} = req.body;
+        // get cart_id for logged-in user
+        const cartIdResp = await db.query(`SELECT id FROM public.cart WHERE user_id = ${id}`)
+        const cart_id = cartIdResp.rows[0].id;
+        // get price of added product from products table
+        const prodResponse = await db.query(`SELECT * FROM public.products WHERE id = ${product_id}`);
+        const { price } = prodResponse.rows[0];
+        // execute query to insert into database
+        const response = await db.query(
+            `INSERT INTO public.cart_items (cart_id, product_id, price, quantity)
+            VALUES (${cart_id}, ${product_id}, ${price}, ${quantity})`);
+        res.send('Item added to cart');
+    } catch (error) {
+        next(error);
+    }
 
-// Modify existing cart
-cartsRouter.put('/:id',);
+});
 
-// Delete existing cart
-cartsRouter.delete('/:id',);
+// Update item in cart (quantity)
+cartsRouter.put('/:productId', async (req, res, next) => {
+    try {
+        const { id } = req.user;
+        const product_id = req.params.productId;
+        const { quantity } = req.body;
+        // get cart_id for logged-in user
+        const cartIdResp = await db.query(`SELECT id FROM public.cart WHERE user_id = ${id}`)
+        const cart_id = cartIdResp.rows[0].id;
+        // execute query to insert into database
+        const response = await db.query(
+            `UPDATE public.cart_items 
+            SET quantity = ${quantity}
+            WHERE (product_id, cart_id) = (${product_id}, ${cart_id})`);
+        res.send('Item updated');
+    } catch (error) {
+        next(error);
+    }
+
+});
 
 module.exports = cartsRouter;

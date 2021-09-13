@@ -68,11 +68,11 @@ const cartsRouter = require('./routes/cart');
 const registerRouter = require('./routes/register');
 //const loginRouter = require('./routes/login');
 
+app.use('/register', registerRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/users/myprofile/cart', cartsRouter);
 app.use('/orders', ordersRouter);
-app.use('/carts', cartsRouter);
-app.use('/register', registerRouter);
 //app.use('/login', loginRouter(passport));
 app.post('/login',  passport.authenticate('local'), async (req, res, next) => {
   try {
