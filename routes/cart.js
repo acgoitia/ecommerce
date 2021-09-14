@@ -96,17 +96,22 @@ cartsRouter.post('/checkout', async (req, res, next) => {
         
         // calculate total
         const total = cartItemsArray.reduce((total, item) => {
-            return total += Number(item.price);
-        }, 0);
+             return total += (Number(item.price) * Number(item.quantity));
+         }, 0);
         
         // create an order for this user
         const created = await db.query(
             `INSERT INTO public.orders (user_id, created, modified, status, total)
-            VALUES (${id}, (SELECT LOCALTIMESTAMP), (SELECT LOCALTIMESTAMP), 'Processing', ${total}`);
+            VALUES (${id}, (SELECT LOCALTIMESTAMP), (SELECT LOCALTIMESTAMP), 'Processing', ${total})`);
         
         // extract order_id created
-        const orderIdResponse = await db.query(`SELECT id FROM public.orders WHERE user_id = ${id}`);
-        const { order_id } = orderIdResponse.rows[0];
+        const orderIdResponse = await db.query(
+            `SELECT id FROM public.orders 
+            WHERE user_id = ${id}
+            AND created = (
+                SELECT MAX(created) FROM public.orders WHERE user_id = ${id} 
+            )`);
+        const order_id = orderIdResponse.rows[0].id;
 
         // add all items to the order
         cartItemsArray.forEach(async (item) => {
@@ -119,7 +124,7 @@ cartsRouter.post('/checkout', async (req, res, next) => {
         // delete all cart items for the logged-in user
         const deleteResp = await db.query(`DELETE FROM public.cart_items WHERE cart_id = ${cart_id}`);
 
-        res.send('Order Processing');
+        res.send(`Order submitted`);
 
     } catch (error) {
         next(error)
