@@ -1,3 +1,5 @@
+// NEED TO ADD SWAGGER DOCUMENTATION!
+
 const dotenv = require('dotenv')
 dotenv.config();
 
