@@ -6,10 +6,8 @@ const app = express();
 const PORT =  process.env.PORT || 4001;
 
 const session = require('express-session');
-//var passport = require('passport');
-//const initializePassport = require('./passport-config');
 
-// Use static server to serve the Express Yourself Website
+// Use static server to serve the Express Website
 app.use(express.static('public'));
 app.use(express.json());  // makes req.body json object
 app.use(session({ 
