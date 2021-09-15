@@ -2,31 +2,34 @@ const express = require('express');
 const ordersRouter = express.Router();
 const db = require('../db');
 
-// Create new order
-//ordersRouter.post('/',);
 
 // View all orders (for specific user)
 ordersRouter.get('/', async (req, res, next) => {
-    // need to pass session information to get userId for this call (TO DO)
+    try {
+        const { id } = req.user;
+    
+        const orders = await db.query(`SELECT * FROM public.orders WHERE user_id = ${id}`);
+        res.send(orders.rows);
 
+    } catch (error) {
+        next(error)
+    }
+});
+
+
+// Retrieve data from specific order (for logged-in user)
+ordersRouter.get('/:orderid', async(req, res, next) => {
+    try {
+        const { id } = req.user;
+        const orderId = req.params.orderid;
+        const orders = await db.query(`SELECT * FROM public.order_items WHERE order_id = ${orderId}`);
+        res.send(orders.rows);  
+        
+    } catch (error) {
+        next(error)
+    }
     
 });
-
-
-// Retrieve data from existing order
-ordersRouter.get('/:id', async(req, res, next) => {
-    const orderId = req.params.id;
-    const order = await db.query(`SELECT * FROM public.orders WHERE orderId = $1`, [orderId]);
-    res.send(order.rows);  
-});
-
-// Modify existing order
-//ordersRouter.put('/:id',);
-
-// Delete existing order
-//ordersRouter.delete('/:id',);
-
-
 
 
 module.exports = ordersRouter;

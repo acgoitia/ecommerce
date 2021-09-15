@@ -71,8 +71,8 @@ const registerRouter = require('./routes/register');
 app.use('/register', registerRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
-app.use('/users/myprofile/cart', cartsRouter);
-app.use('/orders', ordersRouter);
+app.use('/users/myprofile/cart', cartsRouter);  // only view if logged-in
+app.use('/users/myprofile/orders', ordersRouter);  // only view if logged-in
 //app.use('/login', loginRouter(passport));
 app.post('/login',  passport.authenticate('local'), async (req, res, next) => {
   try {
