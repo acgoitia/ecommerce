@@ -5,6 +5,33 @@ const db = require('../db');
 module.exports = (app, passport) => {
   app.use('/login', loginRouter)
   
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *    summary: "Login into user account"
+ *    description: "Login into user account"
+ *    produces:
+ *      - application/json
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: body
+ *        name: "login credentials"
+ *        schema:
+ *          type: object
+ *          properties:
+ *            username:
+ *              type: string
+ *            password:
+ *              type: string
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: 200 Success
+ */
+
+
   loginRouter.post('/',  passport.authenticate('local'), async (req, res, next) => {
     try {
       const {username, password} = req.body;

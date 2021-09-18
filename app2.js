@@ -7,6 +7,11 @@ const express = require('express');
 const app = express();
 const PORT =  process.env.PORT || 4001;
 
+//add swagger documentation
+const swaggerLoader = require('./swagger');
+swaggerLoader(app);
+
+
 const session = require('express-session');
 
 // Use static server to serve the Express Website
