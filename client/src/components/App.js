@@ -8,6 +8,11 @@ import ItemDetail from './itemDetail/ItemDetail';
 import SignUp from './signUp/SignUp';
 import Login from './login/Login';
 import Cart from './cart/Cart';
+import OrderConfirmation from './orderConfirmation/OrderConfirmation';
+import ProfileHomepage from './profileHomepage/ProfileHomepage';
+import UserInfo from './userInfo/UserInfo';
+import OrderDetail from './orderDetail/OrderDetail';
+import Footer from './footer/Footer';
 
 // Add ScrollToTop Component at the end
 
@@ -31,8 +36,17 @@ function App() {
           <Route exact path="/cart">
             <Cart />
           </Route>
+          <Route exact path="/checkout/:id" component={OrderConfirmation} />
+          <Route exact path="/myprofile">
+            <ProfileHomepage />
+          </Route>
+          <Route exact path="/myprofile/userinfo">
+            <UserInfo />
+          </Route>
+          <Route exact path="/myprofile/order/:id" component={OrderDetail} />
         </Switch>
       </main>
+      <Footer />
       
     </div>
   );
