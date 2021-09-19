@@ -29,6 +29,25 @@ module.exports = (app, passport) => {
  *    responses:
  *      200:
  *        description: 200 Success
+ *        schema:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: integer
+ *            first_name:
+ *              type: string
+ *            last_name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            created:
+ *              type: string
+ *            modified:
+ *              type: string
+ *      401:
+ *        description: 401 Unauthorized
+ *      500:
+ *        description: Internal Server Error
  */
 
 

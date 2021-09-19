@@ -2,6 +2,48 @@ const express = require('express');
 const usersRouter = express.Router();
 const db = require('../db');
 
+/**
+ * @swagger
+ * /users/myprofile:
+ *  get:
+ *    summary: "Return user information for authenticated user"
+ *    description: "Return user information for authenticated user"
+ *    produces:
+ *      - application/json
+ *    consumes:
+ *      - application/json
+ *    parameters:
+ *      - in: cookie
+ *        name: user
+ *        schema:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: integer
+ *    responses:
+ *      200:
+ *        description: 200 Success
+ *        schema:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: integer
+ *            first_name:
+ *              type: string
+ *            last_name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            created:
+ *              type: string
+ *            modified:
+ *              type: string
+ *      401:
+ *        description: 401 Unauthorized
+ *      500:
+ *        description: Internal Server Error
+ */
+
 
 // View user profile for authenticated user
 usersRouter.get('/myprofile', async (req, res, next) => {
