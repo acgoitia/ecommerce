@@ -3,7 +3,7 @@ const loginRouter = express.Router();
 const db = require('../db');
 
 module.exports = (app, passport) => {
-  app.use('/login', loginRouter)
+  app.use('/api/login', loginRouter)
   
 /**
  * @swagger

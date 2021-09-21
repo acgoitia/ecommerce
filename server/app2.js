@@ -6,7 +6,7 @@ dotenv.config();
 const express = require('express');
 const app = express();
 const PORT =  process.env.PORT || 4001;
-
+const cors = require('cors');
 //add swagger documentation
 const swaggerLoader = require('./swagger');
 swaggerLoader(app);
@@ -17,6 +17,7 @@ const session = require('express-session');
 // Use static server to serve the Express Website
 app.use(express.static('public'));
 app.use(express.json());  // makes req.body json object
+app.use(cors());
 app.use(session({ 
     secret: process.env.SECRET_SESSION,
     resave: false,

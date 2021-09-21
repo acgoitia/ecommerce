@@ -9,9 +9,9 @@ module.exports = (app, passport) => {
     const loginRouter = require('./login');
     
     loginRouter(app, passport);
-    app.use('/register', registerRouter);
-    app.use('/users', usersRouter);
-    app.use('/products', productsRouter);
-    app.use('/users/myprofile/cart', cartsRouter);  // only view if logged-in
-    app.use('/users/myprofile/orders', ordersRouter);  // only view if logged-in
+    app.use('/api/register', registerRouter);
+    app.use('/api/users', usersRouter);
+    app.use('/api/products', productsRouter);
+    app.use('/api/users/myprofile/cart', cartsRouter);  // only view if logged-in
+    app.use('/api/users/myprofile/orders', ordersRouter);  // only view if logged-in
 }
