@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchProducts } from '../../api/products';
+//import { fetchProducts } from '../../api/products';
 
 // Async action creator -- API call
 export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params, thunkAPI) => {
@@ -7,12 +7,6 @@ export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params
     const jsonData = await response.json();
     console.log(jsonData);
     return jsonData;
-//    return response;
-//    return ["test thunk"];
-    // const response = await fetchProducts();
-    // console.log(response);
-    // return response;
-
 })
 
 
@@ -20,14 +14,31 @@ export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params
 const options = {
     name: 'itemBrowser',
     initialState: {
-        items: [],
+        items: [{
+            id: "",
+            name: "",
+            price: "",
+            inventory: "",
+            categoryid: "",
+            image_url: "",
+            description: ""
+        }],  // need to add initial state so component can have correct properties on first render
         isLoading: false,
         hasError: false
     },
     reducers: {
-        testAction: (state, action) => {
-            state.items = ["test state"];
-            state.isLoading = true;
+        resetState: (state, action) => {
+            state.items = [{
+                id: "",
+                name: "",
+                price: "",
+                inventory: "",
+                categoryid: "",
+                image_url: "",
+                description: ""
+            }];
+            state.isLoading = false;
+            state.hasError = false;
         }    
     },
     extraReducers: {
@@ -56,4 +67,4 @@ export const selectItems = (state) => state.itemBrowser.items;
 export default itemBrowserSlice.reducer;
 
 // export test
-export const {testAction} = itemBrowserSlice.actions;
+export const {testAction, resetState} = itemBrowserSlice.actions;
