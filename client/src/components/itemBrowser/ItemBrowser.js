@@ -35,7 +35,7 @@ function ItemBrowser (props) {
 
     return (
         <div>
-            <ProductCard products={products} isLoading={isLoading}/>
+            <ProductCard products={products[0]} isLoading={isLoading}/>
         </div>
     );
 }

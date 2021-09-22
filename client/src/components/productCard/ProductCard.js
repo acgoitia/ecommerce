@@ -3,21 +3,21 @@ import './productCard.css';
 
 function ProductCard (props) {
     const product = props.products;
-    const isLoading = props.isLoading;
     
     // *** src attribute has path relative to react app "public" folder by default ****
-    const src_path = product[0].image_url;
+    const src_path = product.image_url;
 
     return (
-        <div className="product-card">
+        <div className="product-card" id={product.id}>
             <img src={src_path} alt="product-image" /> 
-            <h1>{product[0].name}</h1>
-            {isLoading ? <h1>Loading...</h1> : <h1>False</h1>}
+            <h1>{product.name}</h1>
+            <h2>{product.description}</h2>
+            <h2>Price: {product.price} USD</h2>
+            <h2>In Stock: {product.inventory}</h2>
         </div>
     );
 }
 
 export default ProductCard;
 
-//{product[0].image_url}
-//"../../images/6_Pollo.jpg"
+//NEED TO ADD "ADD TO CART" BUTTON
