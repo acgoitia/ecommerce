@@ -17,7 +17,7 @@ const session = require('express-session');
 // Use static server to serve the Express Website
 app.use(express.static('public'));
 app.use(express.json());  // makes req.body json object
-app.use(cors());
+app.use(cors({credentials: true}));
 app.use(session({ 
     secret: process.env.SECRET_SESSION,
     resave: false,
