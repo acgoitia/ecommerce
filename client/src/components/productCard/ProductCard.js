@@ -48,5 +48,3 @@ function ProductCard (props) {
 }
 
 export default ProductCard;
-
-//NEED TO ADD "ADD TO CART" BUTTON

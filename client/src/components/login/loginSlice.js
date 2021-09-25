@@ -3,21 +3,29 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Async action creator -- API call
 export const login = createAsyncThunk('login/login', async (params, thunkAPI) => {
-    const response = await fetch("http://localhost:4001/api/login", {
-        method: 'POST',
-        mode: 'cors',
-        credentials: "include",
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({'username': "Andres.Correa11@test.com", 'password': "123456789"}) // add body to the request:  product_id & quantity
-    });
-    const jsonData = await response.json();
-    console.log(jsonData);
-    if(jsonData){
-        return true
+    try {
+        var payload = {
+            username: 'Andres.Correa11@test.com',
+            password: '123456789'
+        };
+        const response = await fetch("http://localhost:4001/api/login", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(payload) // add body to the request:  product_id & quantity
+        });
+        const jsonData = await response.json();
+        console.log(jsonData);
+        if(jsonData){
+            return true
+        }
+        return false;
+    } catch (error) {
+        console.log(error);
     }
-    return false;
 })
 
 
@@ -32,17 +40,17 @@ const options = {
     reducers: {
         resetState: (state, action) => {
             state.isLoggedIn = false;
-            state.isLoading = false;
+            state.isAuthenticating = false;
             state.hasError = false;
         }    
     },
     extraReducers: {
         [login.pending]: (state, action) => {
-            state.Authenticating = true;
+            state.isAuthenticating = true;
             state.hasError = false;
         },
         [login.fulfilled]: (state, action) => {
-            state.Authenticating = false;
+            state.isAuthenticating = false;
             state.hasError = false;
             state.isLoggedIn = action.payload;
         },
