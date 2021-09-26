@@ -2,12 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //import { fetchProducts } from '../../api/products';
 
 // Async action creator -- API call
-export const login = createAsyncThunk('login/login', async (params, thunkAPI) => {
+export const login = createAsyncThunk('login/login', async (payload, thunkAPI) => {
     try {
-        var payload = {
-            username: 'Andres.Correa11@test.com',
-            password: '123456789'
-        };
+        // var payload = {
+        //     username: 'Andres.Correa11@test.com',
+        //     password: '123456789'
+        // };
         const response = await fetch("http://localhost:4001/api/login", {
             method: 'POST',
             mode: 'cors',
@@ -25,6 +25,7 @@ export const login = createAsyncThunk('login/login', async (params, thunkAPI) =>
         return false;
     } catch (error) {
         console.log(error);
+        return false;
     }
 })
 
