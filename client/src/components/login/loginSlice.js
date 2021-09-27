@@ -4,10 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Async action creator -- API call
 export const login = createAsyncThunk('login/login', async (payload, thunkAPI) => {
     try {
-        // var payload = {
-        //     username: 'Andres.Correa11@test.com',
-        //     password: '123456789'
-        // };
+
         const response = await fetch("http://localhost:4001/api/login", {
             method: 'POST',
             mode: 'cors',
@@ -36,12 +33,14 @@ const options = {
     initialState: {
         isLoggedIn: false,  // need to add initial state so component can have correct properties on first render
         isAuthenticating: false,
+        incorrectCreds: false,
         hasError: false
     },
     reducers: {
         resetState: (state, action) => {
             state.isLoggedIn = false;
             state.isAuthenticating = false;
+            state.incorrectCreds = false;
             state.hasError = false;
         }    
     },
@@ -54,6 +53,7 @@ const options = {
             state.isAuthenticating = false;
             state.hasError = false;
             state.isLoggedIn = action.payload;
+            state.incorrectCreds = !action.payload;
         },
         [login.rejected]: (state, action) => {
             state.isAuthenticating = false;

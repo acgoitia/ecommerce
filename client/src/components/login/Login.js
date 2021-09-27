@@ -1,47 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './login.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {resetState, login} from './loginSlice';
+import { login } from './loginSlice';
+import { Redirect, Link } from 'react-router-dom';
 
+// need ensure state is maintained on page refresh
 
 function Login(props) {
     const dispatch = useDispatch();
-    const {isLoggedIn, isAuthenticating, hasError} = useSelector((state) => state.login)
+    const {isLoggedIn, incorrectCreds} = useSelector((state) => state.login)
     
-    // var payload = {
-    //     username: 'Andres.Correa11@test.com',
-    //     password: '123456789'
-    // };
-    // Load product items
-    // useEffect(() => {
-    //     dispatch(login(payload));
-    // },[]);
+    const [userNameState, setUserName] = useState('');
+    const [passwordState, setPassword] = useState('');
 
     // event handler for login form
     const handleLogin = (e) => {
         e.preventDefault();
-        const username = e.target.username.value;   // "Andres.Correa11@test.com" 
-        const password =  e.target.password.value;  // "123456789"
+        const username = e.target.username.value;    
+        const password =  e.target.password.value;  
         var payload = {
             username: username,
             password: password
         };
         dispatch(login(payload));
+        setUserName('');      // clear fields when submitting form
+        setPassword('');    // clear fields when submitting form
     };
+
+    // Ensure input field displays text
+    const handleUserChange = ({target}) => {
+        setUserName(target.value)
+    };
+
+    const handlePasswordChange = ({target}) => {
+        setPassword(target.value)
+    };
+
 
     return (
         <div>
+            {isLoggedIn && <Redirect to="/"/> }
+            {incorrectCreds && <p>Incorrect Username or Password</p> }
             <h1>Login Form Here</h1>
-            <form onSubmit={handleLogin} action="/">
-                <label for="username">email</label>
-                <input type="text" id="username" name="username"/><br/>
-                <label for="password">password</label>
-                <input type="password" id="password" name="password"/><br/>
+            <form onSubmit={handleLogin} >
+                <label for="username">email</label><br/>
+                <input type="text" id="username" name="username" placeholder="email" value={userNameState} onChange={handleUserChange}/><br/>
+                <label for="password">password</label><br/>
+                <input type="password" id="password" name="password" placeholder="password" value={passwordState} onChange={handlePasswordChange}/><br/>
                 <input type="submit" value="Login"/>
             </form>
-            <p>Login State: {`${isLoggedIn}`}</p>
-            <p>Authenticating State: {`${isAuthenticating}`}</p>
-            <p>Error?: {`${hasError}`}</p>
+            <p>Not a member? <Link to="sign-up">Sign up</Link></p>
         </div>
     );
 }
