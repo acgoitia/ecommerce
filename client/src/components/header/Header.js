@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { resetState } from '../login/loginSlice';
 import './header.css';
 
 // help navigate between:  home, cart, login, profile, sign out
@@ -10,6 +11,7 @@ import './header.css';
 
 function Header (props) {
 
+    const dispatch = useDispatch();
     const history = useHistory();
     const {isLoggedIn} = useSelector((state) => state.login);
 
@@ -33,6 +35,14 @@ function Header (props) {
         history.push('/');  
     }
 
+    const handleLogOut = async (e) =>{
+        await fetch('http://localhost:4001/api/logout', {credentials: 'include'});
+        // clear isLoggedIn state & Counter State
+        dispatch(resetState());
+        // redirect to homepage
+        history.push('/logout');
+    }
+
     return (
         <header>
             <div className="home-icon left">
@@ -49,7 +59,7 @@ function Header (props) {
                 </div>
                 <div className="button">
                     {
-                        isLoggedIn ? <button>Sign Out</button> : <button onClick={handleUser}>Login</button>
+                        isLoggedIn ? <button onClick={handleLogOut}>Sign Out</button> : <button onClick={handleUser}>Login</button>
                     }
                 </div>
             </div>

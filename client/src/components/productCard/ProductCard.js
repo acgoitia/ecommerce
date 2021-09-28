@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './productCard.css';
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -27,9 +27,13 @@ function ProductCard (props) {
     }
     
     // only update state when logged in
-    if(isLoggedIn){
-        getCount();
-    }
+    useEffect(() => {
+        if(isLoggedIn){
+            getCount();
+        } else {
+            setCartCount(null);
+        }
+    }, [isLoggedIn])
     
     // Handle Click Function to add to cart
     const handleAddToCart = async(e) => {
@@ -37,24 +41,24 @@ function ProductCard (props) {
         // redirects if user not logged in
         if (!isLoggedIn){
             history.push('/login');  
+        } else {
+            const payload = {
+                product_id: product.id,
+                quantity: 1
+            }
+            
+            await fetch("http://localhost:4001/api/users/myprofile/cart", {
+                method: 'POST',
+                credentials: 'include', // need to include in order for fetch method to send the cookie
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            getCount();
         }
-
-        const payload = {
-            product_id: product.id,
-            quantity: 1
-        }
-        
-        await fetch("http://localhost:4001/api/users/myprofile/cart", {
-            method: 'POST',
-            credentials: 'include', // need to include in order for fetch method to send the cookie
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-        getCount();
     }
 
     // update cart +

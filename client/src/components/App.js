@@ -13,6 +13,7 @@ import ProfileHomepage from './profileHomepage/ProfileHomepage';
 import UserInfo from './userInfo/UserInfo';
 import OrderDetail from './orderDetail/OrderDetail';
 import Footer from './footer/Footer';
+import Logout from './logout/Logout';
 
 // Add ScrollToTop Component at the end
 
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/logout">
+            <Logout />
           </Route>
           <Route exact path="/cart">
             <Cart />

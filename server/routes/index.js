@@ -7,6 +7,7 @@ module.exports = (app, passport) => {
     const cartsRouter = require('./cart');
     const registerRouter = require('./register');
     const loginRouter = require('./login');
+    const logoutRouter = require('./logout');
     
     loginRouter(app, passport);
     app.use('/api/register', registerRouter);
@@ -14,4 +15,5 @@ module.exports = (app, passport) => {
     app.use('/api/products', productsRouter);
     app.use('/api/users/myprofile/cart', cartsRouter);  // only view if logged-in
     app.use('/api/users/myprofile/orders', ordersRouter);  // only view if logged-in
+    app.use('/api/logout', logoutRouter);
 }
