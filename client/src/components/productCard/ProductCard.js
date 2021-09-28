@@ -4,8 +4,6 @@ import './productCard.css';
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// logic for  + / - button to add, remove from cart
-
 function ProductCard (props) {
     const product = props.products;
     const history = useHistory();
@@ -60,6 +58,55 @@ function ProductCard (props) {
         getCount();
     }
 
+    // update cart +
+    const handleIncrement = async(e) => {
+        const quant = cartCount + 1;
+        const payload = {
+            quantity: quant
+        }
+        
+        await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+            method: 'PUT',
+            credentials: 'include', // need to include in order for fetch method to send the cookie
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        getCount();
+    }
+
+    // update cart -
+    const handleDecrease = async(e) => {
+        if (cartCount <= 1){
+            await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+            method: 'DELETE',
+            credentials: 'include', // need to include in order for fetch method to send the cookie
+            mode: 'cors'
+            });
+            setCartCount(null);
+        } else {
+            const quant = cartCount - 1;
+            const payload = {
+                quantity: quant
+            }
+            
+            await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+                method: 'PUT',
+                credentials: 'include', // need to include in order for fetch method to send the cookie
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            getCount();
+        }
+    }
+
     return (
         <div className="product-card" id={product.id}>
             <img src={src_path} alt="product-image" /> 
@@ -68,7 +115,11 @@ function ProductCard (props) {
             <h2 className="product-price">${product.price}</h2>
             {
                 cartCount ?
-                <h2 className="product-inventory">In Cart: {cartCount}</h2> :
+                <div>
+                    <button onClick={handleDecrease}>-</button>
+                    <h2 className="product-inventory">In Cart: {cartCount}</h2>
+                    <button onClick={handleIncrement}>+</button>
+                </div> :
                 <button onClick={handleAddToCart}>Add to Cart</button>
             }
             <h2 className="product-inventory">In Stock: {product.inventory}</h2>
