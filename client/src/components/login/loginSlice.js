@@ -7,6 +7,7 @@ export const login = createAsyncThunk('login/login', async (payload, thunkAPI) =
 
         const response = await fetch("http://localhost:4001/api/login", {
             method: 'POST',
+            credentials: 'include',  // testing keeping session
             mode: 'cors',
             headers: {
                 'Accept': 'application/json',

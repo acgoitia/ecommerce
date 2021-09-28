@@ -56,6 +56,7 @@ module.exports = (app, passport) => {
       const {username, password} = req.body;
       const response = await db.query(`SELECT * FROM public.user WHERE email =$1`, [username]);
       const user = response.rows[0];
+      //res.setHeader('Access-Control-Allow-Origin', 'true'); // testing to keep session
       if (!user) {
         throw createError(401, 'Incorrect username or password');
       }
