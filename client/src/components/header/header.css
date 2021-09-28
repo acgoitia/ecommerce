@@ -1,0 +1,44 @@
+/* General Styles */
+header{
+    background-color: #26a69a;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right {
+    display: flex;
+}
+
+header div{
+    color: whitesmoke;
+    font-size: 30px;
+    margin: 5px;
+}
+
+
+/* Icon-specific Styles */
+
+.home-icon {
+    cursor: pointer;
+}
+
+.user-profile-icon {
+    cursor: pointer;
+}
+
+.cart-icon {
+    cursor: pointer;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+}
+
+/* Other custom Styles */
+.user-profile-icon a {
+    font-size: 20px;
+}
+

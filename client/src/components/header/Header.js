@@ -1,11 +1,58 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart, faUser, faHome } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import './header.css';
+
+// help navigate between:  home, cart, login, profile, sign out
+// need to add bubble with cart items
 
 function Header (props) {
 
+    const history = useHistory();
+    const {isLoggedIn} = useSelector((state) => state.login);
+
+    const handleCart = (e) => {
+        if (isLoggedIn){
+            history.push('/cart');  
+        } else {
+            history.push('/login');
+        }  
+    }
+
+    const handleUser = (e) => {
+        if (isLoggedIn){
+            history.push('/myprofile');  
+        } else {
+            history.push('/login');
+        }
+    }
+
+    const handleHome = (e) => {
+        history.push('/');  
+    }
+
     return (
         <header>
-            <p>header test</p>
+            <div className="home-icon left">
+                <FontAwesomeIcon icon={faHome} onClick={handleHome} />
+            </div>
+            <div className="right">
+                <div className="user-profile-icon">
+                    {
+                        isLoggedIn ? <FontAwesomeIcon icon={faUser} onClick={handleUser} /> : null
+                    }
+                </div>
+                <div className="cart-icon">
+                    <FontAwesomeIcon icon={faShoppingCart} onClick={handleCart} />
+                </div>
+                <div className="button">
+                    {
+                        isLoggedIn ? <button>Sign Out</button> : <button onClick={handleUser}>Login</button>
+                    }
+                </div>
+            </div>
         </header>
     );
 }

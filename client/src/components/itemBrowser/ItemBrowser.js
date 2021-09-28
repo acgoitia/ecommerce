@@ -12,7 +12,7 @@ function ItemBrowser (props) {
     useEffect(() => {
         dispatch(resetState());
         dispatch(loadItems());
-    },[]);
+    },[dispatch]);
 
     const products = useSelector(selectItems);
 
