@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectItems, loadItems, resetState } from './itemBrowserSlice';
-//import { Link } from 'react-router-dom';
 import './itemBrowser.css';
 import ProductCard from '../productCard/ProductCard';
 
@@ -35,7 +34,11 @@ function ItemBrowser (props) {
 
     return (
         <div>
-            <ProductCard products={products[0]} isLoading={isLoading}/>
+            {
+                products.map(item => {
+                    return (<ProductCard products={item} key={item.id}/>)
+                })
+            }
         </div>
     );
 }

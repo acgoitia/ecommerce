@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { Route, Switch, useHistory } from 'react-router-dom';
-import ScrollToTop from './scrollToTop/ScrollToTop';
+import { Route, Switch } from 'react-router-dom';
+//import ScrollToTop from './scrollToTop/ScrollToTop';
 import Header from './header/Header';
 import ItemBrowser from './itemBrowser/ItemBrowser';
 import ItemDetail from './itemDetail/ItemDetail';

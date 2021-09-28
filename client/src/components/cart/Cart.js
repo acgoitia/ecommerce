@@ -1,6 +1,6 @@
 import React from "react";
 import './cart.css';
-import {Redirect} from 'react-router-dom'; 
+
 
 function Cart (props) {
     return(

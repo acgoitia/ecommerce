@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import './productCard.css';
-//import Button from '../button/Button';
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function ProductCard (props) {
     const product = props.products;
     const history = useHistory();
-    // *** src attribute has path relative to react app "public" folder by default ****
-    const src_path = product.image_url;
+    const src_path = product.image_url; // *** src attribute has path relative to react app "public" folder by default ****
     const {isLoggedIn} = useSelector((state) => state.login); //need to create loginReducer
     const [cartCount, setCartCount] = useState(null);
 
@@ -36,8 +34,9 @@ function ProductCard (props) {
     // Handle Click Function to add to cart
     const handleAddToCart = async(e) => {
     
+        // redirects if user not logged in
         if (!isLoggedIn){
-            history.push('/login');  // redirects if user not logged in
+            history.push('/login');  
         }
 
         const payload = {
@@ -109,7 +108,7 @@ function ProductCard (props) {
 
     return (
         <div className="product-card" id={product.id}>
-            <img src={src_path} alt="product-image" /> 
+            <img src={src_path} alt="product" /> 
             <h1 className="product-title">{product.name}</h1>
             <h2 className="product-description">{product.description}</h2>
             <h2 className="product-price">${product.price}</h2>
