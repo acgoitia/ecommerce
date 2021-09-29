@@ -9,6 +9,11 @@ productsRouter.get('/all', async (req, res, next) => {
     res.send(products.rows);
 });
 
+  // Retrieve Category Names
+  productsRouter.get('/categories', async (req, res, next) => {
+    const categoryIds = await db.query(`SELECT * FROM public.categories`);
+    res.send(categoryIds.rows); //array with objects {id: , category:}
+  });
 
 const validateProduct = async (req, res, next) => {
     try {
@@ -27,7 +32,6 @@ const validateProduct = async (req, res, next) => {
     }
   };
 
-
 // Retrieve data from existing product
 productsRouter.get('/:id', validateProduct, async (req, res, next) => {
     res.send(req.product.rows[0]);
@@ -42,6 +46,8 @@ productsRouter.get('/', async (req, res, next) => {
     const products = await db.query(action, params);
     res.send(products.rows);
 });
+
+
 
 
 // Error handler here:
