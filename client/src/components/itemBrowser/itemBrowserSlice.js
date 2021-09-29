@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params, thunkAPI) => {
     const response = await fetch("http://localhost:4001/api/products/all", {mode: 'cors'});
     const jsonData = await response.json();
-    console.log(jsonData);
+    //console.log(jsonData);
     return jsonData;
 })
 
@@ -13,7 +13,7 @@ export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params
 export const loadCategories = createAsyncThunk('itemBrowser/loadCategories', async (params, thunkAPI) => {
     const response = await fetch("http://localhost:4001/api/products/categories", {mode: 'cors'});
     const jsonData = await response.json();
-    console.log(jsonData);
+    //console.log(jsonData);
     return jsonData;
 })
 
@@ -73,8 +73,8 @@ const options = {
         },
         // keep going here
         [loadCategories.pending]: (state, action) => {
-            state.isLoading = true;
-            state.hasError= false;
+            // state.isLoading = true;
+            // state.hasError= false;
         },
         [loadCategories.fulfilled]: (state, action) => {
             state.isLoading = false;

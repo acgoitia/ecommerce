@@ -6,29 +6,48 @@ import ProductCard from '../productCard/ProductCard';
 
 function ItemBrowser (props) {
     const dispatch = useDispatch();
-    const { isLoading, hasError } = useSelector((state) => state.itemBrowser);
-    const [isCheked, setIsChecked] = useState(true)
     
+    // Extract global state with all products and categories included in database
+    const { isLoading, hasError } = useSelector((state) => state.itemBrowser);
+    const products = useSelector(selectItems);
+    const categories = useSelector(selectCategories);
+    
+    // Local State used to filterproducts
+    const [isChecked, setIsChecked] = useState([]); // need to turn it into array for each category
+    const [filteredProducts, setFilteredProducts] = useState(products); // local state for product array with filtered list
+
     // Load product items
     useEffect(() => {
         dispatch(resetState());
         dispatch(loadItems());
         dispatch(loadCategories());
     },[dispatch]);
-
-    const products = useSelector(selectItems);
-    const categories = useSelector(selectCategories);
     
-    // Variables to handle filtering feature
-    var categoryIds = categories.map(cat => cat.id); 
-    var filteredProducts = products;
-    // CONTINUE HERE TO FILTER BASED ON CHECKBOXES
+    // since loadItems is async, need to update filteredProducts once it is resolved
+    useEffect(() => {
+        setFilteredProducts(products);
+    }, [products]);
+
+    useEffect(() => {
+        setIsChecked(categories.map((el) => true));
+    }, [categories]);
+
     const handleFilter = (e) => {
-        setIsChecked(!isCheked);
-        const selectedCategory = e.target.value;
-        console.log(filteredProducts);
-        filteredProducts = products.filter(prod => categoryIds.includes(prod.categoryid));
-        console.log(filteredProducts);
+        const index = e.target.id;
+        // only toggle the value of relevant index
+        const tmp = isChecked.map((el, i) => {
+            if( i === parseInt(index)){
+                return !el
+            } else {
+                return el
+            }
+        });
+        setIsChecked(tmp); // state will be updated at end of render, but after calling next functions
+        
+        // filter array of categories
+        const tmp2 = categories.filter((cat, i) => tmp[i]); // need to use tmp variables since state isn't updated until end of lifecycle
+        const categoryIds = tmp2.map(cat => cat.id); 
+        setFilteredProducts(products.filter(prod => categoryIds.includes(prod.categoryid)));
     }
 
     if (isLoading){
@@ -56,11 +75,11 @@ function ItemBrowser (props) {
                 <div className="sidebar">
                     <h1>Select Categories</h1>
                     {
-                        categories.map(cat => {
+                        categories.map((cat, i) => {
                             return (
-                                <div key={cat.id}>
+                                <div key={i}>
                                     <label for={cat.category}>{cat.category}</label>
-                                    <input type="checkbox" id={cat.id} name={cat.category} checked={isCheked} onChange={handleFilter} value={cat.id} />
+                                    <input type="checkbox" id={i} name={cat.category} checked={isChecked[i]} onChange={handleFilter} value={cat.id} />
                                 </div>
                             )
                         })
