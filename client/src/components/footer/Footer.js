@@ -3,9 +3,9 @@ import './footer.css';
 
 function Footer (props) {
     return (
-        <div>
-            <p>Footer</p>
-        </div>
+        <footer>
+            <p>Copyright 2021</p>
+        </footer>
     );
 }
 

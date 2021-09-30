@@ -66,6 +66,8 @@ function ItemBrowser (props) {
         );
     }
 
+
+    // search functionality to be completed - needs additional API endpoint
     return (
         <div>
             <div className="search-bar">

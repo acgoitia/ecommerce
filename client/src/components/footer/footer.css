@@ -1,0 +1,11 @@
+/* General Styles */
+footer{
+    background-color: #26a69a;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+
+}
