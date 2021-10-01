@@ -22,7 +22,11 @@ ordersRouter.get('/:orderid', async(req, res, next) => {
     try {
         const { id } = req.user;
         const orderId = req.params.orderid;
-        const orders = await db.query(`SELECT * FROM public.order_items WHERE order_id = ${orderId}`);
+        const orders = await db.query(`SELECT oi.price, oi.quantity, p.name, p.description
+        FROM public.order_items AS oi
+        INNER JOIN public.products AS p
+        ON oi.pdoruct_id = p.id
+        WHERE oi.order_id = ${orderId}`);
         res.send(orders.rows);  
         
     } catch (error) {
