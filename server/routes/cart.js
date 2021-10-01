@@ -126,7 +126,7 @@ cartsRouter.post('/checkout', async (req, res, next) => {
         // delete all cart items for the logged-in user
         const deleteResp = await db.query(`DELETE FROM public.cart_items WHERE cart_id = ${cart_id}`);
 
-        res.send(`Order submitted`);
+        res.send(orderIdResponse.rows);
 
     } catch (error) {
         next(error)

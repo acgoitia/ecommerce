@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import './cart.css';
 
 
 function Cart (props) {
 
+    const history = useHistory();
     const {isLoggedIn} = useSelector((state) => state.login);
     const [cart, setCart] = useState([{
         product_id: null,
@@ -27,7 +28,20 @@ function Cart (props) {
         getCart()
     }, [])
 
-    console.log(cart);
+    const handleCheckout = async (e) => {
+        // generae order
+        const response = await fetch("http://localhost:4001/api/users/myprofile/cart/checkout", {
+                method: 'POST',
+                credentials: 'include', // need to include in order for fetch method to send the cookie
+                mode: 'cors'
+            });
+        
+        const jsonData = await response.json();
+        const order_id = jsonData[0].id;
+
+        // redirect to confirmation page
+        history.push(`/checkout/${order_id}`)
+    }
 
     return(
         <div>
@@ -52,7 +66,15 @@ function Cart (props) {
                                 </tr>)
                             })
                         }
+                        <tr id="total">
+                            <td>TOTAL</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${cart.reduce(((prev, curr) => prev + (curr.quantity*curr.price)),0)}</td>
+                        </tr>
                     </table>
+                    <button onClick={handleCheckout}>Checkout</button>
                 </div> : 
                 <Redirect to="/" />
             }           
