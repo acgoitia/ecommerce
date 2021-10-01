@@ -7,15 +7,17 @@ cartsRouter.get('/', async (req, res, next) => {
     try {
         const { id } = req.user;
         const response = await db.query(
-            `SELECT product_id, price, quantity 
-            FROM public.cart_items
-            JOIN public.cart ON public.cart_items.cart_id = public.cart.id
-            WHERE public.cart.user_id = ${id}`);
+            `SELECT ci.product_id, ci.price, ci.quantity, p.name, p.description 
+            FROM public.cart_items AS ci
+            INNER JOIN public.cart AS c
+            ON ci.cart_id = c.id
+            INNER JOIN public.products AS p
+            ON ci.product_id = p.id
+            WHERE c.user_id = ${id}`);
         res.send(response.rows);
     } catch (error) {
         next(error);
     }
-
 });
 
 // Add new item to cart

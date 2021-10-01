@@ -7,7 +7,11 @@ import './cart.css';
 function Cart (props) {
 
     const {isLoggedIn} = useSelector((state) => state.login);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState([{
+        product_id: null,
+        price: null,
+        quantity: null
+    }]);
 
     const getCart = async () => {
         const response = await fetch("http://localhost:4001/api/users/myprofile/cart", {
@@ -16,13 +20,14 @@ function Cart (props) {
             mode: 'cors'
         });
         const jsonData = await response.json();
-        return jsonData;
+        setCart(jsonData);
     };
 
     useEffect(() => {
-        setCart(getCart())
+        getCart()
     }, [])
 
+    console.log(cart);
 
     return(
         <div>
@@ -37,15 +42,15 @@ function Cart (props) {
                             <th>Total</th>
                         </tr>
                         {
-                            // cart.map((item) => {
-                            //     <tr>
-                            //         <td>{item.quantity}</td>
-                            //         <td></td>
-                            //         <td></td>
-                            //         <td>{item.price}</td>
-                            //         <td></td>
-                            //     </tr>
-                            // })
+                            cart.map((item) => {
+                                return (<tr>
+                                    <td>{item.quantity}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.description}</td>
+                                    <td>${item.price}</td>
+                                    <td>${item.quantity*item.price}</td>
+                                </tr>)
+                            })
                         }
                     </table>
                 </div> : 
