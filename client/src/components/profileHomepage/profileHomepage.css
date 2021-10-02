@@ -1,0 +1,50 @@
+.user-info h3 {
+    margin: 5px ;
+}
+
+.user-info h3 span {
+    font-weight: 400;
+}
+
+
+.user-info, .order-history {
+    margin: 25px;
+}
+
+.user-info button, .order-history button {
+    background-color: #009688;
+    color: white;
+    padding: 4px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+    font-size: 1rem;
+}
+
+.user-info button:hover, .order-history button:hover {
+    background-color: #00695c;
+}
+
+.order-history table {
+    width: 100%;
+}
+
+.order-history .date, .order-history .order-no, .order-history .status, .order-history .total {
+    border-collapse: collapse;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    width: 25%;
+}
+
+.order-history th {
+    font-size: 20px;
+}
+
+.order-history .date {
+    min-width: 180px;
+}
+
+.order-history .order-no {
+    min-width: 80px;
+}

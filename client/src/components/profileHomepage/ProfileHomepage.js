@@ -16,7 +16,6 @@ function ProfileHomepage (props) {
             mode: 'cors'
         });
         const jsonData = await response.json();
-        console.log(jsonData)
         setOrders(jsonData);
     }
 
@@ -38,35 +37,35 @@ function ProfileHomepage (props) {
                 <div>
                     <div className="user-info">
                         <h2>User Information</h2>
-                        <h3>First Name: {profile.first}</h3>
-                        <h3>Last Name: {profile.last}</h3>
-                        <h3>Email: {profile.email}</h3>
+                        <h3>First Name: <span>{profile.first}</span></h3>
+                        <h3>Last Name: <span>{profile.last}</span></h3>
+                        <h3>Email: <span>{profile.email}</span></h3>
                         <button onClick={handleEdit}>Edit</button>
                     </div>
                     <div className="order-history">
                         <h2>Order History</h2>
                         <table>
                             <tr>
-                                <th>Date</th>
-                                <th>Order #</th>
-                                <th>Status</th>
-                                <th>Total</th>
-                                <th></th>
+                                <th className="view-order"></th>
+                                <th className="date">Date</th>
+                                <th className="order-no">Order #</th>
+                                <th className="status">Status</th>
+                                <th className="total">Total</th>
                             </tr>
                             {
                                 orders.map((order) => {
                                     const t = order.created.split(/[- : T]/);
                                     const d = new Date(Date.UTC(t[0], t[1]-1, parseInt(t[2])+1));
                                     
-                                    return (<div>
+                                    return (
                                         <tr>
-                                            <th>{d.toDateString()}</th>
-                                            <th>#{order.id}</th>
-                                            <th>{order.status}</th>
-                                            <th>${order.total}</th>
-                                            <th><button onClick={handleView} value={order.id}>View</button></th>
+                                            <td className="view-order"><button onClick={handleView} value={order.id}>View</button></td>
+                                            <td className="date">{d.toDateString()}</td>
+                                            <td className="order-no">#{order.id}</td>
+                                            <td className="status">{order.status}</td>
+                                            <td className="total">${order.total}</td>
                                         </tr>       
-                                    </div>);
+                                    );
                                 })
                             }
                         </table>
