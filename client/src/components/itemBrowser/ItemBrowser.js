@@ -69,7 +69,7 @@ function ItemBrowser (props) {
 
     // search functionality to be completed - needs additional API endpoint
     return (
-        <div>
+        <div className="browse">
             <div className="search-bar">
                 <input placeholder="search"></input>
             </div>
@@ -80,8 +80,10 @@ function ItemBrowser (props) {
                         categories.map((cat, i) => {
                             return (
                                 <div key={i}>
-                                    <label for={cat.category}>{cat.category}</label>
-                                    <input type="checkbox" id={i} name={cat.category} checked={isChecked[i]} onChange={handleFilter} value={cat.id} />
+                                    <label for={cat.category} className="container">{cat.category}
+                                        <input type="checkbox" id={i} name={cat.category} checked={isChecked[i]} onChange={handleFilter} value={cat.id} />
+                                        
+                                    </label>
                                 </div>
                             )
                         })

@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 //import ScrollToTop from './scrollToTop/ScrollToTop';
 import Header from './header/Header';
 import ItemBrowser from './itemBrowser/ItemBrowser';
-import ItemDetail from './itemDetail/ItemDetail';
 import SignUp from './signUp/SignUp';
 import Login from './login/Login';
 import Cart from './cart/Cart';
@@ -14,6 +13,7 @@ import UserInfo from './userInfo/UserInfo';
 import OrderDetail from './orderDetail/OrderDetail';
 import Footer from './footer/Footer';
 import Logout from './logout/Logout';
+//import ItemDetail from './itemDetail/ItemDetail';
 
 // Add ScrollToTop Component at the end
 

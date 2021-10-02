@@ -37,6 +37,19 @@ header div{
     align-items: center;
 }
 
+.button button{
+    width: 100px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    border-color: 1px solid grey;
+}
+
+.button button:hover{
+    background-color: grey;
+    color: white;
+}
+
 /* Other custom Styles */
 .user-profile-icon a {
     font-size: 20px;
