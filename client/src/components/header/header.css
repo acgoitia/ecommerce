@@ -38,11 +38,14 @@ header div{
 }
 
 .button button{
-    width: 100px;
-    height: 30px;
+    background-color: #e0e0e0;
+    color: black;
+    padding: 8px 22px;
+    border: none;
     border-radius: 4px;
-    font-size: 16px;
-    border-color: 1px solid grey;
+    cursor: pointer;
+    margin-top: 4px;
+    font-size: 1rem;
 }
 
 .button button:hover{

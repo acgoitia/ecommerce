@@ -38,17 +38,37 @@ function Login(props) {
 
 
     return (
-        <div>
-            {isLoggedIn && <Redirect to="/"/> }
-            {incorrectCreds && <p>Incorrect Username or Password</p> }
-            <h1>Login Form Here</h1>
-            <form onSubmit={handleLogin} >
-                <label for="username">email</label><br/>
-                <input type="text" id="username" name="username" placeholder="email" value={userNameState} onChange={handleUserChange}/><br/>
-                <label for="password">password</label><br/>
-                <input type="password" id="password" name="password" placeholder="password" value={passwordState} onChange={handlePasswordChange}/><br/>
-                <input type="submit" value="Login"/>
-            </form>
+        <div className="login">
+            <div className="form-container">
+                {isLoggedIn && <Redirect to="/"/> }
+                {incorrectCreds && <p>Incorrect Username or Password</p> }
+                <form onSubmit={handleLogin} >
+                    <div className="form-row">
+                        <div className="form-col-25">
+                            <label for="username">email</label>
+                        </div>
+                        <div className="form-col-75">
+                            <input type="text" id="username" name="username"  value={userNameState} onChange={handleUserChange}/><br/>
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-col-25">
+                            <label for="password">password</label>
+                        </div>
+                        <div className="form-col-75">
+                            <input type="password" id="password" name="password"  value={passwordState} onChange={handlePasswordChange}/><br/>
+                        </div>
+                    </div>
+                    <div className="form-row" >
+                        <div className="form-col-25">
+                            
+                        </div>
+                        <div className="form-col-75">
+                            <input type="submit" value="Login"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <p>Not a member? <Link to="sign-up">Sign up</Link></p>
         </div>
     );
