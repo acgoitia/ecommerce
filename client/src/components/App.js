@@ -27,7 +27,6 @@ function App() {
           <Route exact path="/">
             <ItemBrowser />
           </Route>
-          <Route exact path="/product/:id" component={ItemDetail} />
           <Route exact path="/sign-up">
             <SignUp />
           </Route>
@@ -57,3 +56,5 @@ function App() {
 }
 
 export default App;
+
+//<Route exact path="/product/:id" component={ItemDetail} />

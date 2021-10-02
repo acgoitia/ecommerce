@@ -110,9 +110,13 @@ function ProductCard (props) {
         }
     }
 
+    const handleClick = (e) => {
+        history.push(`/product/${product.id}`);
+    }
+
     return (
         <div className="product-card" id={product.id}>
-            <img src={src_path} alt="product" /> 
+            <img src={src_path} alt="product" onClick={handleClick} /> 
             <h1 className="product-title">{product.name}</h1>
             <h2 className="product-description">{product.description}</h2>
             <h2 className="product-price">${product.price}</h2>
