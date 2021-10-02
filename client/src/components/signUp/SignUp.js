@@ -86,7 +86,6 @@ function SignUp (props) {
 
     return (
         <div>
-            <h1>Sign Up Form Here</h1>
             {isLoggedIn && <Redirect to="/"/> }
             {isSubmitted ? 
                 <div>
@@ -102,18 +101,49 @@ function SignUp (props) {
                             </div>
                     }
                 </div> :
-                <div>
-                    <form onSubmit={handleSignUp} >
-                        <label for="firstName">First Name</label><br/>
-                        <input type="text" id="firstName" name="firstName" placeholder="First" required value={firstNameState} onChange={handleFirstChange}/><br/>
-                        <label for="lastName">Last Name</label><br/>
-                        <input type="text" id="lastName" name="lastName" placeholder="Last" required value={lastNameState} onChange={handleLastChange}/><br/>
-                        <label for="email">email</label><br/>
-                        <input type="text" id="email" name="email" placeholder="email" required value={emailState} onChange={handleEmailChange}/><br/>
-                        <label for="password">Password</label><br/>
-                        <input type="password" id="password" name="password" placeholder="password" required value={passwordState} onChange={handlePasswordChange}/><br/>
-                        <input type="submit" value="Sign Up"/>
-                    </form> 
+                <div className="sign-up">
+                    <div className="form-container">
+                        <form onSubmit={handleSignUp} >
+                            <div className="form-row">
+                                <div className="form-col-25">
+                                    <label for="firstName">First Name</label><br/>
+                                </div>
+                                <div className="form-col-75">
+                                    <input type="text" id="firstName" name="firstName" placeholder="First" required value={firstNameState} onChange={handleFirstChange}/><br/>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-col-25">
+                                    <label for="lastName">Last Name</label><br/>
+                                </div>
+                                <div className="form-col-75">
+                                    <input type="text" id="lastName" name="lastName" placeholder="Last" required value={lastNameState} onChange={handleLastChange}/><br/>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-col-25">
+                                    <label for="email">Email</label><br/>
+                                </div>
+                                <div className="form-col-75">
+                                    <input type="text" id="email" name="email" placeholder="email" required value={emailState} onChange={handleEmailChange}/><br/>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-col-25">
+                                    <label for="password">Password</label><br/>
+                                </div>
+                                <div className="form-col-75">
+                                    <input type="password" id="password" name="password" placeholder="password" required value={passwordState} onChange={handlePasswordChange}/><br/>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-col-25"></div>
+                                <div className="form-col-75">
+                                    <input type="submit" value="Sign Up"/>
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
                     <p>Already a member? <Link to="login">Login</Link></p>
                 </div>
             }
