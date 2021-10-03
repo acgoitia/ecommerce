@@ -1,0 +1,64 @@
+.update-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-info label {
+    display: inline-block;
+    padding: 8px 8px 8px 0;
+}
+
+.update-info input[type=text], .update-info textarea, .update-info input[type=email], .update-info input[type=password] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+
+}
+
+.update-info input[type=submit], .update-info button {
+    background-color: #009688;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 4px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.update-info input[type=submit]:hover, .update-info button:hover {
+    background-color: #00695c;
+}
+
+.update-info .form-container {
+    padding: 20px;
+    background-color: #f2f2f2;
+    margin: 40px;
+    border-radius: 4px;
+    width: 60%;
+}
+
+.update-info .form-row {
+    display: flex;
+    margin: 6px 0;
+}
+
+.update-info #submit-row {
+    flex-flow: row-reverse;
+}
+
+.update-info .form-col-25 {
+    flex-basis: 100px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.update-info .form-col-75 {    
+    flex-shrink: 1;
+    flex-grow: 1;
+}

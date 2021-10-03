@@ -54,21 +54,50 @@ function UserInfo (props) {
     };
 
     return (
-        <div>
+        <div className="update-info">
             {  isLoggedIn ? 
-                <div>
+                <div className="form-container">
                     <form onSubmit={handleUserUpdate}>
-                        <label for="first_name">First Name: </label><br/>
-                        <input type="text" id="first_name" name="first_name" value={user.first} onChange={handleChange}/><br/>
-                        <label for="last_name">Last Name: </label><br/>
-                        <input type="text" id="last_name" name="last_name" value={user.last} onChange={handleChange}/><br/>
-                        <label for="email">Email: </label><br/>
-                        <input type="text" id="email" name="email" value={user.email} onChange={handleChange}/><br/>
-                        <label for="password">Password: </label><br/>
-                        <input type="password" id="password" name="password" value={user.password} onChange={handleChange}/><br/>
-                        <input type="submit" value="Save"/>
-                    </form>
+                        <div className="form-row">
+                            <div className="form-col-25">
+                                <label for="first_name">First Name: </label>
+                            </div>
+                            <div className="form-col-75">
+                                <input type="text" id="first_name" name="first_name" value={user.first} onChange={handleChange}/>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-col-25">
+                                <label for="last_name">Last Name: </label>
+                            </div>
+                            <div className="form-col-75">
+                                <input type="text" id="last_name" name="last_name" value={user.last} onChange={handleChange}/>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-col-25">
+                                <label for="email">Email: </label>
+                            </div>
+                            <div className="form-col-75">
+                                <input type="text" id="email" name="email" value={user.email} onChange={handleChange}/>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-col-25">
+                                <label for="password">Password: </label>
+                            </div>
+                            <div className="form-col-75">
+                                <input type="password" id="password" name="password" value={user.password} onChange={handleChange}/>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-col-25"></div>
+                            <div className="form-col-75">
+                                <input type="submit" value="Save"/>
                     <button onClick={handleClick}>Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div> :
                 <Redirect to="/" ></Redirect>
             }
