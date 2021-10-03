@@ -24,7 +24,7 @@ const session = require('express-session');
 app.use(express.json());  // makes req.body json object
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3000' // will need to abstract it later, required for credentialss:include
+  origin: '*' // will need to abstract it later, required for credentialss:include
 }));
 app.use(session({ 
   secret: process.env.SECRET_SESSION,
@@ -38,6 +38,7 @@ if (process.env.NODE_ENV === "production"){
   // serve static content
   app.use(express.static(path.join(__dirname, 'client/build')));
 } 
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Initialize passport
 const initializePassport =  require('./passport-config')

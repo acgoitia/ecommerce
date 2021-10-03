@@ -65,3 +65,15 @@ CREATE TABLE IF NOT EXISTS public.cart_items (
     FOREIGN KEY (cart_id) REFERENCES public.cart(id),
     FOREIGN KEY (product_id) REFERENCES public.products(id)
 );
+
+INSERT INTO public.categories (category)
+VALUES ('drinks'),
+        ('food');
+
+INSERT INTO public.products (name, price, inventory, categoryid, image_url, description)
+VALUES  ('Water', 5.99, 100, 1, '/images/1_Agua_ePura.jpg', 'Individual water bottle, 250 ml'),
+        ('Juice', 4.99, 100, 1, '/images/2_Unico_Fresco.jpg', '1L Orange Juice container'),
+        ('Milk', 5.99, 100, 1, '/images/3_Alpura_Clasica.jpg', '1Gal whole milk carton'),
+        ('Bread', 2.99, 100, 2, '/images/4_Pan_Bimbo.jpg', '500g Woner bread'),
+        ('Meat', 8.99, 100, 2, '/images/5_Carne.jpg', '500g ground bief'),
+        ('Chicken', 6.99, 100, 2, '/images/6_Pollo.jpg', '500g organich chicken thighs');

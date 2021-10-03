@@ -24,7 +24,7 @@ const session = require('express-session');
 app.use(express.json());  // makes req.body json object
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3000' // will need to abstract it later, required for credentialss:include
+  origin: '*' // will need to abstract it later, required for credentialss:include
 }));
 app.use(session({ 
   secret: process.env.SECRET_SESSION,
