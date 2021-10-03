@@ -10,9 +10,9 @@ function OrderConfirmation (props) {
     }
     
     return (
-        <div>
+        <div className="order-confirmation">
             <p>Your order has been successfully placed!</p>
-            <p>Order # {props.match.params.id}</p>
+            <p className="order-no">Order # {props.match.params.id}</p>
             <button onClick={handleClick}>Continue Shopping</button>
         </div>
     );
