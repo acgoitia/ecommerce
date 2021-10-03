@@ -46,34 +46,36 @@ function Cart (props) {
     return(
         <div>
             {isLoggedIn ? 
-                <div>
-                    <table>
-                        <tr>
-                            <th>Quantity</th>
-                            <th>Item</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                        {
-                            cart.map((item) => {
-                                return (<tr>
-                                    <td>{item.quantity}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.description}</td>
-                                    <td>${item.price}</td>
-                                    <td>${item.quantity*item.price}</td>
-                                </tr>)
-                            })
-                        }
-                        <tr id="total">
-                            <td>TOTAL</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>${cart.reduce(((prev, curr) => prev + (curr.quantity*curr.price)),0)}</td>
-                        </tr>
-                    </table>
+                <div className="cart">
+                    <div className="table-container">
+                        <table>
+                            <tr>
+                                <th className="qty">Quantity</th>
+                                <th className="name">Item</th>
+                                <th className="description">Description</th>
+                                <th className="price">Price</th>
+                                <th className="total">Total</th>
+                            </tr>
+                            {
+                                cart.map((item) => {
+                                    return (<tr>
+                                        <td className="qty">{item.quantity}</td>
+                                        <td className="name">{item.name}</td>
+                                        <td className="description">{item.description}</td>
+                                        <td className="price">${item.price}</td>
+                                        <td className="total">${item.quantity*item.price}</td>
+                                    </tr>)
+                                })
+                            }
+                            <tr id="total">
+                                <td className="grand-total">TOTAL</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td className="grand-total">${cart.reduce(((prev, curr) => prev + (curr.quantity*curr.price)),0)}</td>
+                            </tr>
+                        </table>
+                    </div>
                     <button onClick={handleCheckout}>Checkout</button>
                 </div> : 
                 <Redirect to="/" />
