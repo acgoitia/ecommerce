@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Async action creator -- API call
 export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params, thunkAPI) => {
-    const response = await fetch("http://localhost:4001/api/products/all", {mode: 'cors'});
+    const response = await fetch("/api/products/all", {mode: 'cors'});
     const jsonData = await response.json();
     //console.log(jsonData);
     return jsonData;
@@ -11,7 +11,7 @@ export const loadItems = createAsyncThunk('itemBrowser/loadItems', async (params
 
 // Async action creator -- API call
 export const loadCategories = createAsyncThunk('itemBrowser/loadCategories', async (params, thunkAPI) => {
-    const response = await fetch("http://localhost:4001/api/products/categories", {mode: 'cors'});
+    const response = await fetch("/api/products/categories", {mode: 'cors'});
     const jsonData = await response.json();
     //console.log(jsonData);
     return jsonData;

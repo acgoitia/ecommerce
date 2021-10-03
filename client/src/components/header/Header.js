@@ -36,7 +36,7 @@ function Header (props) {
     }
 
     const handleLogOut = async (e) =>{
-        await fetch('http://localhost:4001/api/logout', {credentials: 'include'});
+        await fetch('/api/logout', {credentials: 'include'});
         // clear isLoggedIn state & Counter State
         dispatch(resetState());
         // redirect to homepage

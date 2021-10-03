@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const login = createAsyncThunk('login/login', async (payload, thunkAPI) => {
     try {
 
-        const response = await fetch("http://localhost:4001/api/login", {
+        const response = await fetch("/api/login", {
             method: 'POST',
             credentials: 'include',  // testing keeping session
             mode: 'cors',
@@ -31,7 +31,7 @@ export const login = createAsyncThunk('login/login', async (payload, thunkAPI) =
 export const updateUser = createAsyncThunk('login/updateUser', async (params, thunkAPI) => {
     try {
 
-        const response = await fetch("http://localhost:4001/api/users/myprofile", {
+        const response = await fetch("/api/users/myprofile", {
             method: 'GET',
             credentials: 'include',  // testing keeping session
             mode: 'cors'

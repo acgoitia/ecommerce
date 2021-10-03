@@ -2,8 +2,14 @@
   "name": "rest-api",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "14.17.5",
+    "npm": "6.14.14"
+  },
   "scripts": {
-    "devStart": "nodemon app.js"
+    "devStart": "nodemon app2.js",
+    "start": "node app2.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "^1.4.5",

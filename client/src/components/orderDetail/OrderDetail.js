@@ -19,7 +19,7 @@ function OrderDetail (props) {
     }]);
     
     const getOrder = async () => {
-        const response = await fetch("http://localhost:4001/api/users/myprofile/orders", {
+        const response = await fetch("/api/users/myprofile/orders", {
             method: 'GET',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'
@@ -30,7 +30,7 @@ function OrderDetail (props) {
     }
     
     const getItems = async() => {
-        const response = await fetch(`http://localhost:4001/api/users/myprofile/orders/${order_id}`, {
+        const response = await fetch(`/api/users/myprofile/orders/${order_id}`, {
             method: 'GET',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'

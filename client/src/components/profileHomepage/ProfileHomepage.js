@@ -10,7 +10,7 @@ function ProfileHomepage (props) {
     const [orders, setOrders] = useState([]);
 
     const getOrders = async () => {
-        const response = await fetch("http://localhost:4001/api/users/myprofile/orders", {
+        const response = await fetch("/api/users/myprofile/orders", {
             method: 'GET',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'

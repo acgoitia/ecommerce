@@ -15,7 +15,7 @@ function Cart (props) {
     }]);
 
     const getCart = async () => {
-        const response = await fetch("http://localhost:4001/api/users/myprofile/cart", {
+        const response = await fetch("/api/users/myprofile/cart", {
             method: 'GET',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'
@@ -30,7 +30,7 @@ function Cart (props) {
 
     const handleCheckout = async (e) => {
         // generae order
-        const response = await fetch("http://localhost:4001/api/users/myprofile/cart/checkout", {
+        const response = await fetch("/api/users/myprofile/cart/checkout", {
                 method: 'POST',
                 credentials: 'include', // need to include in order for fetch method to send the cookie
                 mode: 'cors'

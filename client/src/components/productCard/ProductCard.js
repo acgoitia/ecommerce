@@ -12,7 +12,7 @@ function ProductCard (props) {
 
     //Get cart count for loggedin user
     const getCount = async () => {
-        const response = await fetch("http://localhost:4001/api/users/myprofile/cart", {
+        const response = await fetch("/api/users/myprofile/cart", {
             method: 'GET',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'
@@ -47,7 +47,7 @@ function ProductCard (props) {
                 quantity: 1
             }
             
-            await fetch("http://localhost:4001/api/users/myprofile/cart", {
+            await fetch("/api/users/myprofile/cart", {
                 method: 'POST',
                 credentials: 'include', // need to include in order for fetch method to send the cookie
                 mode: 'cors',
@@ -68,7 +68,7 @@ function ProductCard (props) {
             quantity: quant
         }
         
-        await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+        await fetch(`/api/users/myprofile/cart/${product.id}`, {
             method: 'PUT',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors',
@@ -84,7 +84,7 @@ function ProductCard (props) {
     // update cart -
     const handleDecrease = async(e) => {
         if (cartCount <= 1){
-            await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+            await fetch(`/api/users/myprofile/cart/${product.id}`, {
             method: 'DELETE',
             credentials: 'include', // need to include in order for fetch method to send the cookie
             mode: 'cors'
@@ -96,7 +96,7 @@ function ProductCard (props) {
                 quantity: quant
             }
             
-            await fetch(`http://localhost:4001/api/users/myprofile/cart/${product.id}`, {
+            await fetch(`/api/users/myprofile/cart/${product.id}`, {
                 method: 'PUT',
                 credentials: 'include', // need to include in order for fetch method to send the cookie
                 mode: 'cors',

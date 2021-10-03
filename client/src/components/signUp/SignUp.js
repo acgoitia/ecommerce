@@ -45,7 +45,7 @@ function SignUp (props) {
     // Api call to register user in database
     const register = async (payload) => {
         try {
-            const response = await fetch("http://localhost:4001/api/register", {
+            const response = await fetch("/api/register", {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

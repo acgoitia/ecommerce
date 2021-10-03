@@ -18,7 +18,7 @@ function ItemDetail (props) {
     });
 
     const getItem = async () => {
-        const response = await fetch(`http://localhost:4001/api/products/${product_id}`);
+        const response = await fetch(`/api/products/${product_id}`);
         const jsonData = await response.json();
         setItem(jsonData);
     }

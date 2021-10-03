@@ -38,7 +38,7 @@ function UserInfo (props) {
         if (JSON.stringify(payload) === JSON.stringify(emptyUser) ) {
             history.push('/myprofile');
         } else {
-            await fetch("http://localhost:4001/api/users/myprofile", {
+            await fetch("/api/users/myprofile", {
                 method: 'PUT',
                 credentials: 'include', // need to include in order for fetch method to send the cookie
                 mode: 'cors',
