@@ -51,37 +51,39 @@ function OrderDetail (props) {
     console.log(items);
 
     return (
-        <div>
-            <h1>Order #: {order_id}</h1>
-            <h1>Date: {date}</h1>
-            <h1>Status: {order[0].status}</h1>
-            <table>
-                <tr>
-                    <th>Quantity</th>
-                    <th>Item</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-                {
-                    items.map((item) => {
-                        return (<tr>
-                            <td>{item.quantity}</td>
-                            <td>{item.name}</td>
-                            <td>{item.description}</td>
-                            <td>${item.price}</td>
-                            <td>${item.quantity*item.price}</td>
-                        </tr>)
-                    })
-                }
-                <tr id="total">
-                    <td>TOTAL</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>${items.reduce(((prev, curr) => prev + (curr.quantity*curr.price)),0)}</td>
-                </tr>
-            </table>
+        <div className="order-detail">
+            <h1 className="order-no">Order: #<span>{order_id}</span></h1>
+            <h1>Date: <span>{date}</span></h1>
+            <h1 className="status">Status: <span>{order[0].status}</span></h1>
+            <div className="table-container">
+                <table>
+                    <tr>
+                        <th className="qty">Quantity</th>
+                        <th className="name">Item</th>
+                        <th className="description">Description</th>
+                        <th className="price">Price</th>
+                        <th className="total">Total</th>
+                    </tr>
+                    {
+                        items.map((item) => {
+                            return (<tr>
+                                <td className="qty">{item.quantity}</td>
+                                <td className="name">{item.name}</td>
+                                <td className="description">{item.description}</td>
+                                <td className="price">${item.price}</td>
+                                <td className="total">${item.quantity*item.price}</td>
+                            </tr>)
+                        })
+                    }
+                    <tr id="total">
+                        <td className="grand-total">TOTAL</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td className="grand-total">${items.reduce(((prev, curr) => prev + (curr.quantity*curr.price)),0)}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,61 @@
+.order-detail h1 {
+    margin: 0px 50px;
+    font-size: 24px;
+
+}
+
+.order-detail .status {
+    margin-bottom: 40px;
+}
+
+.order-detail .order-no {
+    margin-top: 40px;
+}
+
+.order-detail span {
+    font-weight: 400;
+}
+
+/*  TABLE FORMATTING */
+
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.order-detail table {
+    width: 90%;
+}
+
+.order-detail .qty, .order-detail .name, .order-detail .description, .order-detail .price, .order-detail .total {
+    border-collapse: collapse;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.order-detail th {
+    font-size: 20px;
+}
+
+.order-detail .qty {
+    width: 90px;
+}
+
+.order-detail .name {
+    width: 120px;
+}
+.order-detail .description{
+
+} 
+.order-detail .price {
+    width: 90px;
+}
+
+.order-detail .total{
+    width: 90px;
+}
+
+.order-detail .grand-total {
+    font-size: 20px;
+    font-weight: 700;
+}
