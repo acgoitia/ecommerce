@@ -119,7 +119,7 @@ cartsRouter.post('/checkout', async (req, res, next) => {
         cartItemsArray.forEach(async (item) => {
             const {product_id, price, quantity} = item;
             const added = await db.query(
-                `INSERT INTO public.order_items
+                `INSERT INTO public.order_items (order_id, pdoruct_id, price, quantity)
                 VALUES (${order_id}, ${product_id}, ${price}, ${quantity})`);
         });
 
